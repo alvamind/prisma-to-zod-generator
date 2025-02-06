@@ -1,0 +1,35 @@
+{
+  "name": "prisma-to-zod-generator",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "alvamind-tools": "^1.0.23",
+    "dynamic-import-resolution": "^1.0.5",
+    "prisma-to-ts-generator": "^1.0.5",
+    "ts-node": "^10.9.2",
+    "ts-to-zod": "^3.15.0",
+    "zod": "^3.24.1"
+  },
+  "scripts": {
+    "source": "generate-source output=documentation.md exclude=dist/,node_modules/,.git/",
+    "commit": "commit",
+    "clean": "clean",
+    "split-code": "split-code source=combined.ts markers=src/,lib/ outputDir=./output",
+    "publish-npm": "publish-npm patch"
+  },
+  "description": "To install dependencies:",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

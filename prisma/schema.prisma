@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // or any other provider
+  url      = env("DATABASE_URL")
+}
+
+// User model with relations and self-reference
+model User {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  name         String?   @default("Anonymous User")
+  role         Role      @default(USER) // Enum example
+  posts        Post[]    @relation(name: "wrote") // User writes Posts
+  comments     Comment[] @relation(name: "wroteComment") // User writes Comments
+  invitedBy    User?     @relation(name: "UserInvitations", fields: [invitedById], references: [id])
+  invitedById  Int?
+  invitedUsers User[]    @relation(name: "UserInvitations")
+  profile      Profile? // One-to-one relation
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([email])
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  title     String
+  content   String?
+  author    User      @relation(name: "wrote", fields: [authorId], references: [id]) // Post author
+  authorId  Int
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  text      String
+  author    User     @relation(name: "wroteComment", fields: [authorId], references: [id]) // Comment author - corrected relation name
+  authorId  Int
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Profile {
+  id        Int      @id @default(autoincrement())
+  bio       String?
+  userId    Int      @unique
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Example Enum
+enum Role {
+  ADMIN
+  USER
+  GUEST
+}
