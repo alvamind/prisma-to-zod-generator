@@ -8,7 +8,7 @@ export const userSchema: z.ZodSchema<User> = z.lazy(() => z.object({
     email: z.string(),
     name: z.string().optional().nullable(),
     role: roleSchema,
-    posts: z.array(postSchema)
+  posts: z.array(z.lazy(() => postSchema))
 }));
 export const postSchema: z.ZodSchema<Post> = z.lazy(() => z.object({
     id: z.number(),
