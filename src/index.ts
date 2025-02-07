@@ -1,3 +1,3 @@
-// prisma-to-zod-generator/src/index.ts
-export { prismaToZod } from './orchestrator';
-export type { PrismaToZodConfig } from './config';
+// src/index.ts
+export { generate } from './generator';
+export type { GeneratorConfig } from './config';

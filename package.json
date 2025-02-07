@@ -11,8 +11,7 @@
   "dependencies": {
     "alvamind-tools": "^1.0.23",
     "dynamic-import-resolution": "^1.0.5",
-    "prisma-to-ts-generator": "^1.0.5",
-    "ts-node": "^10.9.2",
+    "prisma-to-ts-generator": "^1.0.7",
     "ts-to-zod": "^3.15.0",
     "zod": "^3.24.1"
   },
@@ -21,7 +20,8 @@
     "commit": "commit",
     "clean": "clean",
     "split-code": "split-code source=combined.ts markers=src/,lib/ outputDir=./output",
-    "publish-npm": "publish-npm patch"
+    "publish-npm": "publish-npm patch",
+    "ls:tree": "tree -I 'node_modules|dist|.git'  # Exclude node_modules, dist, and .git"
   },
   "description": "To install dependencies:",
   "version": "1.0.0",
